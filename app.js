@@ -45,7 +45,10 @@ function randomColors() {
         const saturation = sliders[2];
 
         colorizeSliders(color, hue, brightness, saturation);
-    })
+    });
+
+    //Reset inputs
+    resetInputs();
 }
 
 function checkTextContrast(color, text) {
@@ -104,6 +107,29 @@ function updateTextUI(index) {
     for (icon of icons) {
         checkTextContrast(color, icon);
     }
+}
+
+function resetInputs() {
+    const sliders = document.querySelectorAll('.sliders input');
+    sliders.forEach(slider => {
+        if (slider.name === 'hue') {
+            const hueColor = initialColors[slider.getAttribute('data-hue')];
+            const hueValue = chroma(hueColor).hsl()[0];
+            slider.value = Math.floor(hueValue);
+        }
+
+        if (slider.name === 'brightness') {
+            const brightnessColor = initialColors[slider.getAttribute('data-bright')];
+            const brightnessValue = chroma(brightnessColor).hsl()[2];
+            slider.value = Math.floor(brightnessValue * 100) / 100;
+        }
+
+        if (slider.name === 'saturation') {
+            const saturationColor = initialColors[slider.getAttribute('data-sat')];
+            const saturationValue = chroma(saturationColor).hsl()[1];
+            slider.value = Math.floor(saturationValue * 100) / 100;
+        }
+    })
 }
 
 randomColors();
