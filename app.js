@@ -228,12 +228,14 @@ const saveInput = document.querySelector('.save-container input');
 const libraryContainer = document.querySelector('.library-container');
 const libraryBtn = document.querySelector('.library');
 const closeLibraryBtn = document.querySelector('.close-library');
+const clearLibraryBtn = document.querySelector('.clear-library');
 
 saveBtn.addEventListener('click', openPalette);
 closeSave.addEventListener('click', closePalette);
 submitSave.addEventListener('click', savePalette);
 libraryBtn.addEventListener('click', openLibrary);
 closeLibraryBtn.addEventListener('click', closeLibrary);
+clearLibraryBtn.addEventListener('click', clearLibrary);
 
 function openPalette() {
     const popup = saveContainer.children[0];
@@ -379,6 +381,11 @@ function getLocal() {
             libraryContainer.children[0].appendChild(palette);
         });
     }
+}
+
+function clearLibrary() {
+    localStorage.removeItem('palettes');
+    history.go();
 }
 
 getLocal();
